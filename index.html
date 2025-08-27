@@ -5,13 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="output.css">
+  
   <!-- AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
       <style>
         html {
           scroll-behavior: smooth;
         }
+                  /* Mobile navbar scroll behavior */
+          @media (max-width: 768px) {
+            .navbar-hidden {
+              transform: translateY(-100%);
+            }
+            .navbar-visible {
+              transform: translateY(0);
+            }
+          }
      </style>
   <!-- Swiper CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -20,17 +29,37 @@
 <body class="bg-[#0f172a] text-white font-sans">
 
   <!-- Navbar -->
-  <nav class="fixed w-full bg-[#0f172a] shadow-lg z-50 border-b border-gray-700  transition-all duration-300 hover:border-green-400 hover:shadow-[0_-2px_10px_rgba(34,197,94,0.5)]">
-    <div class="container mx-auto flex justify-between items-center px-6 py-4">
-      <h1 class="text-2xl font-bold text-green-500 sm:ms-0">MyPortfolio</h1>
-      <ul class="flex space-x-6">
-        <li><a href="#about" class="hover:text-green-500 transition">About</a></li>
-        <li><a href="#skills" class="hover:text-green-500">Skills</a></li>
-        <li><a href="#projects" class="hover:text-green-500 transition">Projects</a></li>
-        <li><a href="#contact" class="hover:text-green-500 transition">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- Navbar -->
+<nav id="navbar" class="fixed w-full bg-[#0f172a] shadow-lg z-50 border-b border-gray-700 transition-all duration-300 hover:border-green-400 hover:shadow-[0_-2px_10px_rgba(34,197,94,0.5)] md:transform-none navbar-visible">
+  <div class="container mx-auto flex justify-between items-center px-6 py-4">
+    <h1 class="text-2xl font-bold text-green-500 sm:ms-0">MyPortfolio</h1>
+    
+    <!-- Desktop Navigation -->
+    <ul class="hidden md:flex space-x-6">
+      <li><a href="#about" class="hover:text-green-500 transition">About</a></li>
+      <li><a href="#skills" class="hover:text-green-500">Skills</a></li>
+      <li><a href="#projects" class="hover:text-green-500 transition">Projects</a></li>
+      <li><a href="#contact" class="hover:text-green-500 transition">Contact</a></li>
+    </ul>
+    
+    <!-- Mobile Menu Button -->
+    <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+  
+  <!-- Mobile Navigation Menu -->
+  <div id="mobileMenu" class="md:hidden hidden bg-[#0f172a] border-t border-gray-700">
+    <ul class="flex flex-col space-y-2 px-6 py-4">
+      <li><a href="#about" class="block hover:text-green-500 transition py-2">About</a></li>
+      <li><a href="#skills" class="block hover:text-green-500 py-2">Skills</a></li>
+      <li><a href="#projects" class="block hover:text-green-500 transition py-2">Projects</a></li>
+      <li><a href="#contact" class="block hover:text-green-500 transition py-2">Contact</a></li>
+    </ul>
+  </div>
+</nav>
 <div data-aos="fade-up">
   <!-- Hero Section -->
     <section id="hero" class="min-h-screen flex items-center justify-center px-8 pt-20">
@@ -336,6 +365,60 @@ document.getElementById("contactForm").addEventListener("submit", async function
   }, 500);
 
   document.addEventListener("DOMContentLoaded", typeEffect);
+</script>
+  <!-- Mobile Navbar Scroll Script -->
+<script>
+let lastScrollTop = 0;
+const navbar = document.getElementById('navbar');
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+// Mobile navbar scroll behavior (only on mobile screens)
+function handleNavbarScroll() {
+  if (window.innerWidth <= 768) { // Only apply to mobile screens
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+      // Scrolling down - hide navbar
+      navbar.classList.remove('navbar-visible');
+      navbar.classList.add('navbar-hidden');
+      // Also hide mobile menu if open
+      mobileMenu.classList.add('hidden');
+    } else {
+      // Scrolling up - show navbar
+      navbar.classList.remove('navbar-hidden');
+      navbar.classList.add('navbar-visible');
+    }
+    
+    lastScrollTop = scrollTop;
+  }
+}
+
+// Mobile menu toggle
+mobileMenuBtn.addEventListener('click', function() {
+  mobileMenu.classList.toggle('hidden');
+});
+
+// Close mobile menu when clicking on a link
+const mobileLinks = mobileMenu.querySelectorAll('a');
+mobileLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+  });
+});
+
+// Add scroll event listener
+window.addEventListener('scroll', handleNavbarScroll);
+
+// Handle window resize to reset navbar behavior
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 768) {
+    // Reset navbar classes for desktop
+    navbar.classList.remove('navbar-hidden');
+    navbar.classList.add('navbar-visible');
+    mobileMenu.classList.add('hidden');
+  }
+});
 </script>
 
 
