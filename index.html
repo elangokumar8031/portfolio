@@ -22,6 +22,60 @@
             }
           }
      </style>
+     <style>
+            /* Stars */
+      .stars {
+        width: 2px;
+        height: 2px;
+        background: white;
+        box-shadow: 
+          50px 100px white, 200px 300px white, 400px 150px white,
+          600px 400px white, 800px 50px white, 1000px 250px white,
+          1200px 500px white, 1400px 200px white, 1600px 300px white,
+          1800px 100px white, 1900px 450px white, 300px 600px white,
+          700px 700px white, 1300px 650px white, 1700px 550px white,
+          400px 800px white, 900px 900px white, 1500px 850px white;
+        animation: twinkle 2s infinite alternate;
+      }
+
+      @keyframes twinkle {
+        from { opacity: 1; }
+        to { opacity: 0.5; }
+      }
+
+      /* Meteors */
+      .meteor {
+        position: absolute;
+        width: 150px;
+        height: 2px;
+        background: linear-gradient(white, transparent);
+        border-radius: 999px;
+        top: -100px;
+        transform: rotate(-45deg);
+        animation: fall 3s linear infinite;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateX(0) translateY(0) rotate(-45deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-800px) translateY(800px) rotate(-45deg);
+          opacity: 0;
+        }
+      }
+
+      /* Different meteors with delays */
+      .meteor:nth-child(2) { left: 20%; animation-delay: 0s; }
+      .meteor:nth-child(3) { left: 40%; animation-delay: 2s; }
+      .meteor:nth-child(4) { left: 60%; animation-delay: 4s; }
+      .meteor:nth-child(5) { left: 80%; animation-delay: 6s; }
+      .meteor:nth-child(6) { left: 30%; animation-delay: 8s; }
+      
+      
+
+     </style>
   <!-- Swiper CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   
@@ -32,7 +86,7 @@
   <!-- Navbar -->
 <nav id="navbar" class="fixed w-full bg-[#0f172a] shadow-lg z-50 border-b border-gray-700 transition-all duration-300 hover:border-green-400 hover:shadow-[0_-2px_10px_rgba(34,197,94,0.5)] md:transform-none navbar-visible">
   <div class="container mx-auto flex justify-between items-center px-6 py-4">
-    <h1 class="text-2xl font-bold text-green-500 sm:ms-0">MyPortfolio</h1>
+    <h1 class="text-2xl font-bold text-green-500 sm:ms-0">CODer</h1>
     
     <!-- Desktop Navigation -->
     <ul class="hidden md:flex space-x-6">
@@ -62,27 +116,39 @@
 </nav>
 <div data-aos="fade-up">
   <!-- Hero Section -->
-    <section id="hero" class="min-h-screen flex items-center justify-center px-8 pt-20">
-      <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
-        
-        <!-- Left Content -->
-        <div class="md:w-1/2 space-y-4">
-          <h1 class="text-4xl md:text-5xl font-bold mx-5">ELANGO K</h1>
-          <h2 class="text-2xl mx-5">
-            I'm a <span id="typing-text" class="text-green-500 font-bold"></span>
-            <span class="text-green-500 font-bold" id="cursor">|</span>
-          </h2>
-          <p class="text-gray-300 max-w-md mx-5">
-            An MCA student diving deep into full-stack development. While I'm still on my learning journey, my passion for coding and relentless hard work keeps me growing every day. I’m committed to mastering the craft and becoming a pro—one line of code at a time. 
-          </p>
-          <a target="_blank" href="./assets/CV.pdf" 
-            class="bg-green-500 hover:bg-green-600 text-black px-5 py-2 rounded-full font-semibold shadow-lg inline-block mx-5 transition-all duration-300 hover:border-green-400 hover:shadow-[0_-2px_10px_rgba(34,197,94,0.5)]">
-            Download CV
-          </a>
-        </div>
+     <section id="hero" class="relative min-h-screen flex items-center justify-center px-8 pt-20 overflow-hidden">
+  
+  <!-- 🌌 Background Animation -->
+  <div class="absolute inset-0 z-0">
+    <div class="stars"></div>
+    <div class="meteor"></div>
+    <div class="meteor"></div>
+    <div class="meteor"></div>
+    <div class="meteor"></div>
+    <div class="meteor"></div>
+    
+    
+  </div>
 
-      </div>
-    </section>
+  <!-- 🚀 Hero Content -->
+  <div class="container mx-auto flex flex-col md:flex-row items-center justify-between relative z-10">
+    <div class="md:w-1/2 space-y-4">
+      <h1 class="text-4xl md:text-5xl font-bold mx-5">ELANGO K</h1>
+      <h2 class="text-2xl mx-5">
+        I'm a <span id="typing-text" class="text-green-500 font-bold"></span>
+        <span class="text-green-500 font-bold" id="cursor">|</span>
+      </h2>
+      <p class="text-gray-300 max-w-md mx-5">
+        Passionate about creating meaningful work that makes a difference.
+      </p>
+      <a target="_blank" href="./assets/CV.pdf" 
+        class="bg-green-500 text-white hover:bg-green-600  px-5 py-2 rounded-full font-semibold shadow-lg inline-block mx-5 transition-all duration-300 hover:border-green-400 hover:shadow-[0_-2px_10px_rgba(34,197,94,0.5)]">
+        Download CV
+      </a>
+      
+    </div>
+  </div>
+</section>
 
 </div>  
   <!-- About Me Section -->
@@ -104,10 +170,7 @@
         About Me
       </h2>
       <p class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-300">
-        Hi, I'm Elango  a passionate developer who loves building
-        web applications, working with embedded systems, and learning new technologies.
-        I enjoy solving real-world problems through clean and efficient code.
-        Upscaling in fullstack development to attain the position.
+        An MCA student diving deep into full-stack development. While I'm still on my learning journey, my passion for coding and relentless hard work keeps me growing every day. I’m committed to mastering the craft and becoming a pro—one line of code at a time.
       </p>
     </div>
 
