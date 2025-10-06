@@ -8,20 +8,64 @@
   
   <!-- AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="./assets/logo.png"> 
       <style>
-        html {
-          scroll-behavior: smooth;
-        }
-                  /* Mobile navbar scroll behavior */
-          @media (max-width: 768px) {
-            .navbar-hidden {
-              transform: translateY(-100%);
-            }
-            .navbar-visible {
-              transform: translateY(0);
-            }
-          }
-     </style>
+      /* Hover underline animation */
+      .nav-link {
+        position: relative;
+      }
+
+      .nav-link::before,
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: #fff;
+        transform: scaleX(0);
+        transition: transform 0.8s ease;
+      }
+
+      .nav-link::before {
+        top: 0;
+        left: 0;
+        transform-origin: left;
+      }
+
+      .nav-link::after {
+        bottom: 0;
+        left: 0;
+        transform-origin: right;
+      }
+
+      .nav-link:hover::before,
+      .nav-link:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* Smooth dropdown animation */
+      .menu-enter {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      .menu-enter-active {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .menu-exit {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .menu-exit-active {
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+    </style>
      <style>
             /* Stars */
       .stars {
@@ -82,38 +126,51 @@
 </head>
 <body class="bg-[#0f172a] text-white font-sans">
 
-  <!-- Navbar -->
-  <!-- Navbar -->
-<nav id="navbar" class="fixed w-full bg-[#0f172a] shadow-lg z-50 border-b border-gray-700 transition-all duration-300 hover:border-green-400 hover:shadow-[0_-2px_10px_rgba(34,197,94,0.5)] md:transform-none navbar-visible">
-  <div class="container mx-auto flex justify-between items-center px-6 py-4">
-    <h1 class="text-2xl font-bold text-green-500 sm:ms-0">CODer</h1>
-    
-    <!-- Desktop Navigation -->
-    <ul class="hidden md:flex space-x-6">
-      <li><a href="#about" class="hover:text-green-500 transition">About</a></li>
-      <li><a href="#skills" class="hover:text-green-500">Skills</a></li>
-      <li><a href="#projects" class="hover:text-green-500 transition">Projects</a></li>
-      <li><a href="#contact" class="hover:text-green-500 transition">Contact</a></li>
-    </ul>
-    
-    <!-- Mobile Menu Button -->
-    <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </button>
-  </div>
-  
-  <!-- Mobile Navigation Menu -->
-  <div id="mobileMenu" class="md:hidden hidden bg-[#0f172a] border-t border-gray-700">
-    <ul class="flex flex-col space-y-2 px-6 py-4">
-      <li><a href="#about" class="block hover:text-green-500 transition py-2">About</a></li>
-      <li><a href="#skills" class="block hover:text-green-500 py-2">Skills</a></li>
-      <li><a href="#projects" class="block hover:text-green-500 transition py-2">Projects</a></li>
-      <li><a href="#contact" class="block hover:text-green-500 transition py-2">Contact</a></li>
-    </ul>
-  </div>
-</nav>
+     <nav class=" top-0 left-0 w-full z-50  shadow-md ">
+      <div class="flex justify-between items-center px-6 py-4">
+        <!-- Logo -->
+        <div class="text-2xl font-bold"></div>
+
+        <!-- Hamburger button -->
+        <button
+          id="menu-btn"
+          class="flex flex-col justify-between w-6 h-5 md:hidden focus:outline-none"
+        >
+          <span class="block w-full h-[3px] bg-white transition-all"></span>
+          <span class="block w-full h-[3px] bg-white transition-all"></span>
+          <span class="block w-full h-[3px] bg-white transition-all"></span>
+        </button>
+
+        <!-- Desktop Menu -->
+        <ul class="hidden md:flex md:space-x-8">
+          <li><a href="#about" class="nav-link text-lg py-3 tracking-widest">About</a></li>
+          <li><a href="#skills" class="nav-link text-lg py-3 tracking-widest">Skills</a></li>
+          <li><a href="#projects" class="nav-link text-lg py-3 tracking-widest">Project</a></li>
+          <li><a href="#contact" class="nav-link text-lg py-3 tracking-widest">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Mobile Menu -->
+      <ul
+        id="menu"
+        class="hidden flex-col items-center  md:hidden transition-all duration-300 ease-in-out w-full overflow-hidden"
+      >
+       
+        <li class="w-full text-center border-b border-gray-700">
+          <a href="#about" class="block py-13 text-lg nav-link">About</a>
+        </li>
+        <li class="w-full text-center border-b border-gray-700">
+          <a href="#skills" class="block py-3 text-lg nav-link">Skills</a>
+        </li>
+        <li class="w-full text-center border-b border-gray-700">
+          <a href="#projects" class="block py-3 text-lg nav-link">Team</a>
+        </li>
+        <li class="w-full text-center border-b border-gray-700">
+          <a href="#contact" class="block py-3 text-lg nav-link">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
 <div data-aos="fade-up">
   <!-- Hero Section -->
      <section id="hero" class="relative min-h-screen flex items-center justify-center px-8 pt-20 overflow-hidden">
@@ -141,7 +198,7 @@
       <p class="text-gray-300 max-w-md mx-5">
         Passionate about creating meaningful work that makes a difference.
       </p>
-      <a target="_blank" href="./assets/CV.pdf" 
+      <a target="_blank" href="./assets/CV.docx" 
         class="bg-green-500 text-white hover:bg-white hover:text-green-600  px-5 py-2 rounded-full font-semibold shadow-lg inline-block mx-5 transition-all duration-300 hover:border-green-400 hover:shadow-[0_-2px_10px_rgba(34,197,94,0.5)] ">
         Download CV
       </a>
@@ -446,60 +503,14 @@ document.getElementById("contactForm").addEventListener("submit", async function
   document.addEventListener("DOMContentLoaded", typeEffect);
 </script>
   <!-- Mobile Navbar Scroll Script -->
-<script>
-let lastScrollTop = 0;
-const navbar = document.getElementById('navbar');
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
+   <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const menu = document.getElementById("menu");
 
-// Mobile navbar scroll behavior (only on mobile screens)
-function handleNavbarScroll() {
-  if (window.innerWidth <= 768) { // Only apply to mobile screens
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    if (scrollTop > lastScrollTop && scrollTop > 100) {
-      // Scrolling down - hide navbar
-      navbar.classList.remove('navbar-visible');
-      navbar.classList.add('navbar-hidden');
-      // Also hide mobile menu if open
-      mobileMenu.classList.add('hidden');
-    } else {
-      // Scrolling up - show navbar
-      navbar.classList.remove('navbar-hidden');
-      navbar.classList.add('navbar-visible');
-    }
-    
-    lastScrollTop = scrollTop;
-  }
-}
-
-// Mobile menu toggle
-mobileMenuBtn.addEventListener('click', function() {
-  mobileMenu.classList.toggle('hidden');
-});
-
-// Close mobile menu when clicking on a link
-const mobileLinks = mobileMenu.querySelectorAll('a');
-mobileLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.add('hidden');
-  });
-});
-
-// Add scroll event listener
-window.addEventListener('scroll', handleNavbarScroll);
-
-// Handle window resize to reset navbar behavior
-window.addEventListener('resize', function() {
-  if (window.innerWidth > 768) {
-    // Reset navbar classes for desktop
-    navbar.classList.remove('navbar-hidden');
-    navbar.classList.add('navbar-visible');
-    mobileMenu.classList.add('hidden');
-  }
-});
-</script>
-
+      menuBtn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+    </script>
 
 
 </body>
